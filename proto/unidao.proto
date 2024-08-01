@@ -1,0 +1,346 @@
+syntax = "proto3";
+package dao;
+
+option go_package = "github.com/qwenyang/xmetau/proto/unidao";
+
+import "common.proto";
+
+// The request message containing Account info.
+message Login {
+  int32  login_type = 1; // 登录类型
+  string app_id = 2;   // AppId
+  string open_id = 3;  // 微信OpenID
+  string union_id = 4;  // 微信UnionId
+}
+
+// The request message containing Account info
+message Account {
+  uint64 user_id = 1;  // 用户ID
+}
+
+// 登录请求，首次登录返回UserId
+message LoginReq {
+  Login login = 1;
+  string game_name = 2; // 游戏名称
+}
+
+// 回包请求
+message LoginResp {
+  common.Header header = 1;
+  Login login = 2;
+  Account account = 3;
+}
+
+// The request message containing the user infomation.
+message UserAttribute {
+  uint64 user_id = 1;  // 用户ID
+  string nick_name = 2; // 用户昵称
+  string avatar_url = 3; // 用户头像信息
+  int32 novice_training = 4; // 是否完成新手训练
+  int32 play_level = 5; // 用户当前的棋力等级
+  int32 gold_coin = 6; // 金币数量
+  int32 win_num = 7; // 赢棋的局数
+  int32 lose_num = 8; // 输棋的局数
+  int32 tie_num = 9; // 平局的局数
+  string game_name = 10; // 游戏名称
+
+  string modify_time = 100; // 修改时间
+  string create_time = 101; // 创建时间
+}
+
+message QueryUserReq {
+  uint64 user_id = 1;  // 用户ID
+}
+
+message QueryUserResp {
+  common.Header header = 1;
+  UserAttribute user = 2;  // 返回用户信息
+}
+
+message UpdateUserHeaderReq {
+  uint64 user_id = 1;  // 用户ID
+  string nick_name = 2; // 用户昵称
+  string avatar_url = 3; // 用户头像信息
+}
+
+message UpdateUserTrainingReq {
+  uint64 user_id = 1;  // 用户ID
+  int32 novice_training = 2; // 是否完成新手训练
+}
+
+message UpdateUserLevelReq {
+  uint64 user_id = 1;  // 用户ID
+  int32 play_level = 2; // 用户当前的棋力等级
+  int32 diff_level = 3; // 用户棋力 加减差值
+}
+
+message UpdateUserCoinReq {
+  uint64 user_id = 1;  // 用户ID
+  int32 gold_coin = 2; // 用户金币数量
+  int32 diff_coin = 3; // 用户金币数量 加减差值
+}
+
+message UpdateGameNumReq {
+  uint64 user_id = 1;  // 用户ID
+  int32 win_num = 2; // 赢棋的局数
+  int32 lose_num = 3; // 输棋的局数
+  int32 tie_num = 4; // 平局的局数
+  int32 diff_num = 5; // -1 0 1
+}
+
+message UpdateUserResp {
+  common.Header header = 1;
+  UserAttribute user = 2;  // 返回用户信息
+}
+
+message UserListReq {
+  uint64 user_id = 1;  // 用户ID
+  int32 page_size = 2; // 页大小
+  int32 page_index = 3; // 页下标
+  string game_name = 4; // 游戏名称
+}
+
+message PageData {
+  int32 total = 1;  // 总数
+  int32 page_size = 2; // 页大小
+  int32 page_index = 3; // 页下标
+}
+
+message UserListResp {
+  common.Header header = 1;
+  PageData page_data = 2;
+  repeated UserAttribute user_list = 3;  // 返回用户信息列表
+}
+
+message GameAsset {
+  uint64 id = 1;  // 资产ID
+  string name = 2;  // 资产名称
+  int32 type = 3; // 资产类型
+  int32 level = 4; // 资产级别
+  int32 gold_value = 5; // 资产价值
+  string url = 6; // 资产图地址
+}
+
+message UserAsset {
+  uint64 id = 1;  // ID
+  uint64 user_id = 2; // 用户ID
+  uint64 asset_id = 3; // 资产ID
+  int32 count = 4; // 拥有的数量
+  string expiration_time = 5; // 过期时间
+  GameAsset asset = 6; // 资产项内容
+}
+
+message CommonUserReq {
+  uint64 user_id = 1; // 用户ID
+}
+
+message AssetListResp {
+  common.Header header = 1;
+  repeated GameAsset assets = 2; // 资产列表
+}
+
+message UpdateUserAssetReq {
+  uint64 user_id = 1; // 用户ID
+  uint64 asset_id = 2; // 资产ID
+  string expiration_time = 3; // 过期时间
+}
+
+message UserAssetResp {
+  common.Header header = 1;
+  repeated UserAsset user_assets = 2;  // 返回用户资产列表
+}
+
+message GameSetting {
+  int32  set_type = 1; // 设置类型
+  uint64 set_id = 2; // 设置ID
+  string set_key = 3; // 设置Key
+  string set_value = 4; // 设置值
+}
+
+message GameSettingReq {
+  uint64 user_id = 1; // 用户ID
+  int32  set_type = 2; // 设置类型
+  uint64 set_id = 3; // 设置ID
+}
+
+message GameSettingResp {
+  common.Header header = 1;
+  repeated GameSetting settings = 2;  // 设置列表信息
+}
+
+message UpdateSettingReq {
+  uint64 user_id = 1; // 用户ID
+  int32  set_type = 2; // 设置类型
+  uint64 set_id = 3; // 设置ID
+  string set_key = 4; // 设置Key
+  string set_value = 5; // 设置值
+}
+
+message UpdateSettingResp {
+  common.Header header = 1;
+  repeated GameSetting settings = 2;  // 设置列表信息
+}
+
+message TeamMember {
+  uint64 user_id = 1; // 用户ID
+  uint64 team_id = 2; // 队伍ID
+  int32  char_type = 3; // 任务角色
+  int32 level_index = 4; // 等级
+  int32 pass_count = 5; // 通关次数
+  int32 finish_status = 6; // 状态
+  UserAttribute user_attribute = 7; // 用户属性
+}
+
+message TeamGroup {
+  uint64 team_id = 1; // 队伍ID
+  string team_name = 2; // 团队名称
+  int32 level_index = 3; // 等级
+  int32 score = 4; // 分值
+  repeated TeamMember team_members = 5; // 成员信息
+}
+
+message CreateTeamReq {
+  uint64 user_id = 1; // 用户ID
+  uint64 team_id = 2; // 队伍ID
+  int32  char_type = 3; // 任务角色
+  string team_name = 4; // 团队名称
+}
+
+message CreateTeamResp {
+  common.Header header = 1;
+  TeamGroup team = 2;
+}
+
+message TeamRankListReq {
+  uint64 user_id = 1; // 用户ID
+}
+
+message TeamRankListResp {
+  common.Header header = 1;
+  repeated TeamGroup teams = 2;
+}
+
+message JoinTeamReq {
+  uint64 user_id = 1; // 用户ID
+  uint64 team_id = 2; // 队伍ID
+  int32  char_type = 3; // 任务角色
+}
+
+message JoinTeamResp {
+  common.Header header = 1;
+  TeamGroup team = 2;
+}
+
+message TeamInfoReq {
+  uint64 user_id = 1; // 用户ID
+  uint64 team_id = 2; // 队伍ID
+}
+
+message TeamInfoResp {
+  common.Header header = 1;
+  TeamGroup team = 2;
+}
+
+message UserTeamReq {
+  uint64 user_id = 1; // 用户ID
+}
+
+message UserTeamResp {
+  common.Header header = 1;
+  TeamGroup team = 2;
+}
+
+message TeamResource {
+  int32 level_index = 1; // 等级
+  int32 score = 2; // 分值
+}
+
+message TeamUserResource {
+  int32 pass_count = 1; // 尝试通关次数
+  int32 level_index = 2; // 等级
+  int32 finish_status = 3; // 状态
+}
+
+message UpdateUserTeamReq {
+  uint64 user_id = 1; // 用户ID
+  uint64 team_id = 2; // 队伍ID
+  int32 update_type = 3; // 1 开始游戏 2 游戏通关 3 游戏失败
+  TeamUserResource old_user_resource = 4; // 更新前用户资源一下
+  TeamUserResource new_user_resource = 5; // 更新后用户资源一下
+  TeamResource old_team_resource = 6; // 更新前资源一下
+  TeamResource new_team_resource = 7; // 更新后资源一下
+}
+
+message UpdateUserTeamResp {
+  common.Header header = 1;
+  TeamGroup team = 2;  // 设置列表信息
+}
+
+message UserBarrierLevel {
+  uint64 user_id = 1; // 用户ID
+  int32 level_index = 2; // 关卡级别
+  int32 pass_count = 3; // 通关次数
+  int32 pass_token = 4; // 通关Token次数
+}
+
+message UserBarrierLevelReq {
+  uint64 user_id = 1; // 用户ID
+}
+
+message UserBarrierLevelResp {
+  common.Header header = 1;
+  UserBarrierLevel barrier = 2;
+}
+
+message UpdateUserBarrierLevelReq {
+  UserBarrierLevel barrier = 1;
+}
+
+message UpdateUserBarrierLevelResp {
+  common.Header header = 1;
+  UserBarrierLevel barrier = 2;
+}
+
+// The XMetau Dao service definition.
+service XMetauDaoService {
+  // 登录，首次登录则插入新用户
+  rpc Login (LoginReq) returns (LoginResp) {}
+  // 查询用户信息
+  rpc QueryUser (QueryUserReq) returns (QueryUserResp) {}
+  // 更新用户头部信息
+  rpc UpdateUserHeader (UpdateUserHeaderReq) returns (UpdateUserResp) {}
+  // 更新用户是否完成新手训练
+  rpc UpdateUserNoviceTraining (UpdateUserTrainingReq) returns (UpdateUserResp) {}
+  // 更新用户棋力等级
+  rpc UpdateUserPlayLevel (UpdateUserLevelReq) returns (UpdateUserResp) {}
+
+  // 更新金币数量
+  rpc UpdateUserCoin(UpdateUserCoinReq) returns (UpdateUserResp) {}
+  // 更新输赢的次数
+  rpc UpdateGameNum(UpdateGameNumReq) returns (UpdateUserResp) {}
+  // 查询用户排名列表
+  rpc QueryUserRankList(UserListReq) returns (UserListResp) {}
+  // 机器人列表
+  rpc QueryRobotUserList(UserListReq) returns (UserListResp) {}
+
+  // 资产接口
+  rpc AssetList(CommonUserReq) returns (AssetListResp) {}
+  rpc UserAssetList(CommonUserReq) returns (UserAssetResp) {}
+  rpc UpdateUserAsset(UpdateUserAssetReq) returns (UserAssetResp) {}
+
+  // 设置接口
+  rpc SettingList(GameSettingReq) returns (GameSettingResp) {}
+  rpc UpdateSetting(UpdateSettingReq) returns (UpdateSettingResp) {}
+
+  // 队伍场景用户信息
+  rpc CreateTeam(CreateTeamReq) returns (CreateTeamResp) {}
+  rpc GetTeamRankList(TeamRankListReq) returns (TeamRankListResp) {}
+  rpc JoinTeam(JoinTeamReq) returns (JoinTeamResp) {}
+  rpc GetUserTeam(UserTeamReq) returns (UserTeamResp) {}
+  rpc GetTeamInfo(TeamInfoReq) returns (TeamInfoResp) {}
+  rpc UpdateUserTeam(UpdateUserTeamReq) returns (UpdateUserTeamResp) {}
+
+  // 闯关信息
+  rpc GetUserBarrierLevel(UserBarrierLevelReq) returns (UserBarrierLevelResp) {}
+  rpc UpdateUserBarrierLevel(UpdateUserBarrierLevelReq) returns (UpdateUserBarrierLevelResp) {}
+}

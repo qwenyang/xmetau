@@ -1,0 +1,9 @@
+syntax = "proto3";
+option go_package = "github.com/qwenyang/xmetau/proto/common";
+package common;
+
+// 项目回包格式公共头部
+message Header {
+  int32 code = 1;  // 返回码
+  string message = 2; // 返回信息
+}
