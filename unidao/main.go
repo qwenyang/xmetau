@@ -9,7 +9,7 @@ import (
 
 	common "github.com/qwenyang/xmetau/proto/common"
 	pb "github.com/qwenyang/xmetau/proto/unidao"
-	tables "github.com/qwenyang/xmetau/proto/unidao/tables"
+	tables "github.com/qwenyang/xmetau/unidao/tables"
 
 	"google.golang.org/grpc"
 )

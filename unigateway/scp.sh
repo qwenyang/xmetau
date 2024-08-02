@@ -1,0 +1,1 @@
+scp -r unigateway qwenyang@129.204.196.100:/home/qwenyang/bin
