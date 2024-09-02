@@ -12,12 +12,12 @@ import (
 // 登录接口，也会返回用户信息 => 默认是微信小游戏斗子象棋的Login
 func (h *cgiProxyService) WxChessLogin(ctx context.Context, in *cgi.LoginReq) (*cgi.LoginRsp, error) {
 	log.Printf("login %v", in)
-	err, session := platform.WxCode2Session(in.Code, WxChessAppId, WxChessAppSecret)
+	err, session := platform.WxCode2Session(in.Code, MainConfig.WxChessAppId, MainConfig.WxChessAppSecret)
 	if err != nil {
 		return nil, err
 	}
 	gameName := "douzi"
-	err, userId := proxy.LoginGetUserId(session, WxChessAppId, gameName)
+	err, userId := proxy.LoginGetUserId(session, MainConfig.WxChessAppId, gameName)
 	if err != nil {
 		return nil, err
 	}
@@ -39,12 +39,12 @@ func (h *cgiProxyService) WxChessLogin(ctx context.Context, in *cgi.LoginReq) (*
 // 微信桌球登录接口，也会返回用户信息
 func (h *cgiProxyService) WxBilliardLogin(ctx context.Context, in *cgi.LoginReq) (*cgi.LoginRsp, error) {
 	log.Printf("billiard wx login %v", in)
-	err, session := platform.WxCode2Session(in.Code, WxBilliardAppId, WxBilliardAppSecret)
+	err, session := platform.WxCode2Session(in.Code, MainConfig.WxBilliardAppId, MainConfig.WxBilliardAppSecret)
 	if err != nil {
 		return nil, err
 	}
 	gameName := "billiard"
-	err, userId := proxy.LoginGetUserId(session, WxBilliardAppId, gameName)
+	err, userId := proxy.LoginGetUserId(session, MainConfig.WxBilliardAppId, gameName)
 	if err != nil {
 		return nil, err
 	}
@@ -66,12 +66,12 @@ func (h *cgiProxyService) WxBilliardLogin(ctx context.Context, in *cgi.LoginReq)
 // 微信坦克登录接口，也会返回用户信息
 func (h *cgiProxyService) WxTankLogin(ctx context.Context, in *cgi.LoginReq) (*cgi.LoginRsp, error) {
 	log.Printf("billiard wx login %v", in)
-	err, session := platform.WxCode2Session(in.Code, WxTankAppId, WxTankAppSecret)
+	err, session := platform.WxCode2Session(in.Code, MainConfig.WxTankAppId, MainConfig.WxTankAppSecret)
 	if err != nil {
 		return nil, err
 	}
 	gameName := "tank"
-	err, userId := proxy.LoginGetUserId(session, WxTankAppId, gameName)
+	err, userId := proxy.LoginGetUserId(session, MainConfig.WxTankAppId, gameName)
 	if err != nil {
 		return nil, err
 	}
@@ -93,12 +93,12 @@ func (h *cgiProxyService) WxTankLogin(ctx context.Context, in *cgi.LoginReq) (*c
 // 自己桌球登陆
 func (h *cgiProxyService) ByteDanceBilliardLogin(ctx context.Context, in *cgi.LoginReq) (*cgi.LoginRsp, error) {
 	log.Printf("billiard bd login %v", in)
-	err, session := platform.ByteDanceCode2Session(in.Code, ByteDanceBilliardAppId, ByteDanceBilliardAppSecret)
+	err, session := platform.ByteDanceCode2Session(in.Code, MainConfig.ByteDanceBilliardAppId, MainConfig.ByteDanceBilliardAppSecret)
 	if err != nil {
 		return nil, err
 	}
 	gameName := "bytedance_billiard"
-	err, userId := proxy.LoginGetUserId(session, ByteDanceBilliardAppId, gameName)
+	err, userId := proxy.LoginGetUserId(session, MainConfig.ByteDanceBilliardAppId, gameName)
 	if err != nil {
 		return nil, err
 	}

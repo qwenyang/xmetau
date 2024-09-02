@@ -9,7 +9,7 @@ import (
 )
 
 var (
-	mysqlDSN string   = fmt.Sprintf("xmetau:%s@(%s:%d)/xmetau?charset=utf8mb4&parseTime=True&loc=Local", DataBasePassword, DataBaseIP, DataBasePort)
+	mysqlDSN string   = fmt.Sprintf("%s:%s@(%s:%d)/%s?charset=utf8mb4&parseTime=True&loc=Local", MainConfig.DataBaseUserName, MainConfig.DataBasePassword, MainConfig.DataBaseIP, MainConfig.DataBasePort, MainConfig.DataBaseName)
 	globalDB *gorm.DB = nil
 )
 
