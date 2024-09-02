@@ -1,0 +1,1 @@
+* * * * * sh /www/wwwroot/xmetau/bin/check.sh & >> /www/wwwroot/xmetau/log/check.log

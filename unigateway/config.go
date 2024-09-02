@@ -6,22 +6,22 @@ import (
 	"log"
 )
 
-var configPath string = "/www/wwwroot/xmetau/billiard/conf/config.json"
+var configPath string = "/www/wwwroot/xmetau/conf/config.json"
 
 type MainServiceConfig struct {
-	DataBaseName string `json:"database_name"`
+	DataBaseName     string `json:"database_name"`
 	DataBaseUserName string `json:"database_user_name"`
 	DataBasePassword string `json:"database_password"`
-	DataBaseIP string  `json:"database_ip"`
-	DataBasePort  string `json:"database_port"`
+	DataBaseIP       string `json:"database_ip"`
+	DataBasePort     int    `json:"database_port"`
 
-	WxChessAppId string `json:"wx_chess_appid"`
-	WxChessAppSecret string `json:"wx_chess_appsecret"`
-	WxBilliardAppId string `json:"wx_billiard_appid"`
-	WxBilliardAppSecret string `json:"wx_billiard_appsecret"`
-	WxTankAppId string `json:"wx_tank_appid"`
-	WxTankAppSecret string `json:"wx_tank_appsecret"`
-	ByteDanceBilliardAppId string `json:"bytedance_billiard_appid"`
+	WxChessAppId               string `json:"wx_chess_appid"`
+	WxChessAppSecret           string `json:"wx_chess_appsecret"`
+	WxBilliardAppId            string `json:"wx_billiard_appid"`
+	WxBilliardAppSecret        string `json:"wx_billiard_appsecret"`
+	WxTankAppId                string `json:"wx_tank_appid"`
+	WxTankAppSecret            string `json:"wx_tank_appsecret"`
+	ByteDanceBilliardAppId     string `json:"bytedance_billiard_appid"`
 	ByteDanceBilliardAppSecret string `json:"bytedance_billiard_appsecret"`
 }
 
@@ -46,4 +46,3 @@ func LoadConfig(path string) *MainServiceConfig {
 func init() {
 	MainConfig = LoadConfig(configPath)
 }
-

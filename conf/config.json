@@ -1,0 +1,16 @@
+{
+	"database_name": "",
+	"database_user_name": "",
+	"database_password": "",
+	"database_ip": "127.0.0.1",
+	"database_port": 3306,
+
+	"wx_chess_appid": "",
+	"wx_chess_appsecret": "",
+	"wx_billiard_appid": "",
+	"wx_billiard_appsecret": "",
+	"wx_tank_appid": "",
+	"wx_tank_appsecret": "",
+	"bytedance_billiard_appid": "",
+	"bytedance_billiard_appsecret": ""
+}
